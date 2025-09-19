@@ -1,15 +1,13 @@
 import { useState } from "react";
-import Map from "./components/Map"; // Import the Map component
+import reactLogo from "./assets/react.svg";
+import viteLogo from "/vite.svg";
+import "./App.css";
+import RoomKeyLanding from "./components/landingpage";
 
 function App() {
-  const [count, setCount] = useState(0); // Counter is not needed for this example, but can be removed if not used
+  const [count, setCount] = useState(0);
 
-  return (
-    <div className="App">
-      <h1 className="text-3xl font-bold">Dormitory Management</h1>
-      <Map /> {/* Render the Map component */}
-    </div>
-  );
+  return <>hello</>;
 }
 
 export default App;
