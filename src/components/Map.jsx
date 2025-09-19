@@ -20,7 +20,8 @@ const Map = () => {
 
       // Dormitory icon (working example)
       const dormitoryIcon = L.icon({
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+        iconUrl:
+          "https://cdn-icons-png.flaticon.com/512/684/684908.png",
         iconSize: [40, 40],
         iconAnchor: [20, 40],
         popupAnchor: [0, -40],
@@ -28,7 +29,7 @@ const Map = () => {
 
       const dormitories = [
         {
-          name: "Pratibha Patil ",
+          name: "Dormitory 1",
           lat: 19.076,
           lon: 72.8777,
           price: "₹5000",
@@ -37,7 +38,7 @@ const Map = () => {
         },
         {
           name: "Dormitory 2",
-          lat: 19.08,
+          lat: 19.080,
           lon: 72.885,
           price: "₹4500",
           available: false,
@@ -45,8 +46,8 @@ const Map = () => {
         },
         {
           name: "Dormitory 3",
-          lat: 19.07,
-          lon: 72.87,
+          lat: 19.070,
+          lon: 72.870,
           price: "₹4750",
           available: true,
           address: "Mumbai, Maharashtra",
@@ -54,9 +55,7 @@ const Map = () => {
       ];
 
       dormitories.forEach((d) => {
-        const marker = L.marker([d.lat, d.lon], { icon: dormitoryIcon }).addTo(
-          map
-        );
+        const marker = L.marker([d.lat, d.lon], { icon: dormitoryIcon }).addTo(map);
 
         marker.bindPopup(
           `<b>${d.name}</b><br>Price: ${d.price}<br>Status: ${
@@ -73,15 +72,22 @@ const Map = () => {
           }
         );
 
-        marker.on("mouseover", () => marker.openTooltip());
-        marker.on("mouseout", () => marker.closeTooltip());
+        // Show tooltip and popup on hover
+        marker.on("mouseover", () => {
+          marker.openTooltip();
+          marker.openPopup();
+        });
+        marker.on("mouseout", () => {
+          marker.closeTooltip();
+          marker.closePopup();
+        });
       });
 
       // Landmarks strictly in Mumbai
       const landmarks = [
         { name: "Gateway of India", lat: 18.922, lon: 72.8347 },
         { name: "Marine Drive", lat: 18.943, lon: 72.823 },
-        { name: "Chhatrapati Shivaji Terminus", lat: 18.94, lon: 72.835 },
+        { name: "Chhatrapati Shivaji Terminus", lat: 18.940, lon: 72.835 },
       ];
 
       landmarks.forEach((l) => {
@@ -90,21 +96,24 @@ const Map = () => {
 
       // Transport icons with reliable URLs
       const busIcon = L.icon({
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/61/61456.png", // cleaner bus icon
+        iconUrl:
+          "https://cdn-icons-png.flaticon.com/512/61/61231.png",
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30],
       });
 
       const trainIcon = L.icon({
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/61/61222.png",
+        iconUrl:
+          "https://cdn-icons-png.flaticon.com/512/61/61222.png",
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30],
       });
 
       const metroIcon = L.icon({
-        iconUrl: "https://cdn-icons-png.flaticon.com/512/61/61220.png",
+        iconUrl:
+          "https://cdn-icons-png.flaticon.com/512/61/61220.png",
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30],
@@ -115,14 +124,14 @@ const Map = () => {
         // Train stations
         {
           name: "Chhatrapati Shivaji Maharaj Terminus (CST)",
-          lat: 18.94,
+          lat: 18.940,
           lon: 72.835,
           icon: trainIcon,
         },
         {
           name: "Mumbai Central Railway Station",
           lat: 18.975,
-          lon: 72.83,
+          lon: 72.830,
           icon: trainIcon,
         },
         {
@@ -173,7 +182,7 @@ const Map = () => {
         },
         {
           name: "Ghatkopar Bus Station",
-          lat: 19.09,
+          lat: 19.090,
           lon: 72.918,
           icon: busIcon,
         },
@@ -201,17 +210,12 @@ const Map = () => {
         lineOptions: { styles: [{ color: "#6FA1EC", weight: 4 }] },
       }).addTo(map);
     }
-  }, []);
+  }, []); // <-- added empty dependency array
 
   return (
     <div
       ref={mapRef}
-      style={{
-        height: "500px",
-        width: "100%",
-        borderRadius: "10px",
-        overflow: "hidden",
-      }}
+      style={{ height: "500px", width: "100%", borderRadius: "10px", overflow: "hidden" }}
     />
   );
 };
