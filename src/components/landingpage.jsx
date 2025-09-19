@@ -44,10 +44,11 @@ const RoomKeyLanding = () => {
       </nav>
 
       {/* Hero Content */}
-      <div className="relative">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-gray-200/90 via-gray-100/70 to-transparent"></div>
-        </div>
+      <div
+        className="relative bg-cover bg-center min-h-[75vh] lg:min-h-[80vh]"
+        style={{ backgroundImage: "url('/images/hero-dormitory.jpg')" }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-r from-gray-200/90 via-gray-100/70 to-transparent"></div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 lg:pt-16 pb-16 lg:pb-20">
           <div className="flex flex-col lg:flex-row items-center justify-between min-h-[75vh] lg:min-h-[80vh]">

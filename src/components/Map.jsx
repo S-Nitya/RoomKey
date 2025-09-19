@@ -215,7 +215,12 @@ const Map = () => {
   return (
     <div
       ref={mapRef}
-      style={{ height: "500px", width: "100%", borderRadius: "10px", overflow: "hidden" }}
+      style={{
+        height: "100vh", // Fullscreen height
+        width: "100%", // Full width
+        borderRadius: "0", // Optional: if you want sharp edges
+        overflow: "hidden",
+      }}
     />
   );
 };

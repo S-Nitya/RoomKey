@@ -4,9 +4,9 @@ import Map from "./components/Map"; // Map component
 import PhotoGallery from "./components/gallery"; // PhotoGallery component
 // Uncomment other components once you create them:
 import RoomsPage from "./components/roomlisting"; // RoomListings component
-// import Reviews from "./components/Reviews"; // Reviews component
-// import FAQ from "./components/FAQ"; // FAQ component
-import DormitoryInquiryForm from "./components/inquiry"; // Contact component
+import ReviewsPage from "./components/reviews_page"; // Reviews component
+import FAQPage from "./components/faq"; // FAQ component
+import ContactPage from "./components/contact"; // Contact component
 
 function App() {
   return (
@@ -19,9 +19,9 @@ function App() {
         
         {/* Uncomment and add these routes if the respective components are created */}
         <Route path="/listings" element={<RoomsPage/>} />
-        {/* <Route path="/reviews" element={<Reviews />} /> */}
-        {/* <Route path="/faq" element={<FAQ />} /> */}
-        <Route path="/contact" element={<DormitoryInquiryForm />} />
+        <Route path="/reviews" element={<ReviewsPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/contact" element={<ContactPage />} />
       </Routes>
     </Router>
   );

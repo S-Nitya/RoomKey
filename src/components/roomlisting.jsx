@@ -1,42 +1,41 @@
 import React from 'react';
 import { ChevronDown, Menu, Camera } from 'lucide-react';
+import { Link } from 'react-router-dom'; // Import Link for routing
 
 const RoomsPage = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
   const [roomTypeFilter, setRoomTypeFilter] = React.useState('All Rooms');
   const [priceFilter, setPriceFilter] = React.useState('Price: Low to High');
 
-  // CHANGED: Prices reduced for student affordability
   const rooms = [
     {
       id: 1,
       title: "Triple Sharing",
-      price: 7500, // Price in INR
+      price: 7500, 
       description: "Budget-friendly triple sharing with bunk beds",
       status: "Full",
-      image: "/images/triple-1.jpg" // Path relative to the public folder
+      image: "/images/triple-1.jpg" 
     },
     {
       id: 2,
       title: "Double Sharing",
-      price: 9500, // Price in INR
+      price: 9500, 
       description: "Comfortable double sharing room with twin beds",
       status: "Available",
-      image: "/images/double-1.jpg" // Path relative to the public folder
+      image: "/images/double-1.jpg" 
     },
     {
       id: 3,
       title: "Single Room",
-      price: 13000, // Price in INR
+      price: 13000, 
       description: "Spacious single room with private bathroom",
       status: "Available",
-      image: "/images/single-1.jpg" // Path relative to the public folder
+      image: "/images/single-1.jpg" 
     }
   ];
 
   return (
     <div className="min-h-screen bg-gray-50">
-      
       {/* Navbar */}
       <nav className="relative z-50 bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -50,12 +49,12 @@ const RoomsPage = () => {
 
             {/* Desktop Navigation */}
             <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Room Listings</a>
-              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Photo Gallery</a>
-              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Location</a>
-              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Reviews</a>
-              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">FAQ</a>
-              <a href="#" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Contact</a>
+              <Link to="/listings" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Room Listings</Link>
+              <Link to="/gallery" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Photo Gallery</Link>
+              <Link to="/location" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Location</Link>
+              <Link to="/reviews" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Reviews</Link>
+              <Link to="/faq" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">FAQ</Link>
+              <Link to="/contact" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Contact</Link>
             </div>
 
             {/* CTA Button */}
@@ -80,12 +79,12 @@ const RoomsPage = () => {
           {isMobileMenuOpen && (
             <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg border-t border-gray-100 z-50">
               <div className="px-4 py-2 space-y-1">
-                <a href="#" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Room Listings</a>
-                <a href="#" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Photo Gallery</a>
-                <a href="#" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Location</a>
-                <a href="#" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Reviews</a>
-                <a href="#" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">FAQ</a>
-                <a href="#" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Contact</a>
+                <Link to="/listings" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Room Listings</Link>
+                <Link to="/gallery" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Photo Gallery</Link>
+                <Link to="/location" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Location</Link>
+                <Link to="/reviews" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Reviews</Link>
+                <Link to="/faq" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">FAQ</Link>
+                <Link to="/contact" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Contact</Link>
                 <div className="pt-2 pb-2">
                   <button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-lg font-semibold">
                     Book Now
@@ -198,16 +197,13 @@ const RoomsPage = () => {
                 </p>
 
                 {/* Action Button */}
-                <button 
-                  className={`w-full py-3 rounded-lg font-semibold text-lg transition-all duration-300 ${
-                    room.status === 'Available' 
-                      ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:shadow-lg transform hover:scale-105' 
-                      : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                  }`}
-                  disabled={room.status !== 'Available'}
-                >
+                <Link to="/listings" className={`w-full py-3 rounded-lg font-semibold text-lg transition-all duration-300 ${
+                  room.status === 'Available' 
+                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:shadow-lg transform hover:scale-105' 
+                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                }`}>
                   {room.status === 'Available' ? 'View Details' : 'Currently Full'}
-                </button>
+                </Link>
               </div>
             </div>
           ))}
@@ -221,7 +217,6 @@ const RoomsPage = () => {
         </div>
       </div>
 
-      {/* Font styles moved to index.html */}
     </div>
   );
 };
