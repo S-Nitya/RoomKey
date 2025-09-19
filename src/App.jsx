@@ -7,7 +7,7 @@ import RoomKeyLanding from "./components/landingpage";
 function App() {
   const [count, setCount] = useState(0);
 
-  return <>hello</>;
+  return <><RoomKeyLanding  />; </>
 }
 
 export default App;
