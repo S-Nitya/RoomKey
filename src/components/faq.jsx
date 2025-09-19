@@ -1,22 +1,90 @@
 import React, { useState } from "react";
 import { ChevronDown, Search, HelpCircle } from "lucide-react";
 import { motion } from "framer-motion";
-import { useNavigate } from "react-router-dom"; // Import useNavigate hook
+import { useNavigate } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const faqs = [
-  { id: 1, category: "Booking", question: "How do I book a room at RoomKey?", answer: "You can book a room directly through our website by clicking the 'Book Now' button and following the simple steps." },
-  { id: 2, category: "Pricing", question: "What is included in the monthly rent?", answer: "The monthly rent includes utilities such as water, electricity, and WiFi, as well as access to common areas and facilities." },
-  { id: 3, category: "Facilities", question: "What amenities are available?", answer: "Our amenities include fully furnished rooms, high-speed WiFi, study lounges, fitness center, and laundry facilities." },
-  { id: 4, category: "Policies", question: "What is your cancellation policy?", answer: "Cancellations made 30 days before move-in are eligible for a full refund. After that, partial charges may apply." },
-  { id: 5, category: "Living", question: "Can I have guests over?", answer: "Yes, residents may have guests, but overnight stays may be subject to prior approval and certain restrictions." },
-  { id: 6, category: "Facilities", question: "Is parking available?", answer: "Yes, we offer secure parking spaces for residents at an additional cost." },
-  { id: 7, category: "Living", question: "What are the house rules?", answer: "House rules include quiet hours, cleanliness in shared spaces, and respect for fellow residents." },
-  { id: 8, category: "Booking", question: "When can I move in?", answer: "Move-in dates are flexible and will be confirmed after booking, typically at the start of academic terms." },
-  { id: 9, category: "Facilities", question: "How is maintenance handled?", answer: "We have an on-site maintenance team available 24/7. Requests can be submitted through our resident portal." },
-  { id: 10, category: "Pricing", question: "Are there any additional fees?", answer: "Additional fees may include parking, optional cleaning services, or late payment charges." },
+  {
+    id: 1,
+    category: "Booking",
+    question: "How do I book a room at RoomKey?",
+    answer:
+      "You can book a room directly through our website by clicking the 'Book Now' button and following the simple steps.",
+  },
+  {
+    id: 2,
+    category: "Pricing",
+    question: "What is included in the monthly rent?",
+    answer:
+      "The monthly rent includes utilities such as water, electricity, and WiFi, as well as access to common areas and facilities.",
+  },
+  {
+    id: 3,
+    category: "Facilities",
+    question: "What amenities are available?",
+    answer:
+      "Our amenities include fully furnished rooms, high-speed WiFi, study lounges, fitness center, and laundry facilities.",
+  },
+  {
+    id: 4,
+    category: "Policies",
+    question: "What is your cancellation policy?",
+    answer:
+      "Cancellations made 30 days before move-in are eligible for a full refund. After that, partial charges may apply.",
+  },
+  {
+    id: 5,
+    category: "Living",
+    question: "Can I have guests over?",
+    answer:
+      "Yes, residents may have guests, but overnight stays may be subject to prior approval and certain restrictions.",
+  },
+  {
+    id: 6,
+    category: "Facilities",
+    question: "Is parking available?",
+    answer:
+      "Yes, we offer secure parking spaces for residents at an additional cost.",
+  },
+  {
+    id: 7,
+    category: "Living",
+    question: "What are the house rules?",
+    answer:
+      "House rules include quiet hours, cleanliness in shared spaces, and respect for fellow residents.",
+  },
+  {
+    id: 8,
+    category: "Booking",
+    question: "When can I move in?",
+    answer:
+      "Move-in dates are flexible and will be confirmed after booking, typically at the start of academic terms.",
+  },
+  {
+    id: 9,
+    category: "Facilities",
+    question: "How is maintenance handled?",
+    answer:
+      "We have an on-site maintenance team available 24/7. Requests can be submitted through our resident portal.",
+  },
+  {
+    id: 10,
+    category: "Pricing",
+    question: "Are there any additional fees?",
+    answer:
+      "Additional fees may include parking, optional cleaning services, or late payment charges.",
+  },
 ];
 
-const categories = ["All", "Booking", "Pricing", "Facilities", "Living", "Policies", "Safety"];
+const categories = [
+  "All",
+  "Booking",
+  "Pricing",
+  "Facilities",
+  "Living",
+  "Policies",
+];
 
 const FAQPage = () => {
   const [activeCategory, setActiveCategory] = useState("All");
@@ -25,8 +93,11 @@ const FAQPage = () => {
   const navigate = useNavigate(); // Initialize useNavigate hook for redirection
 
   const filteredFaqs = faqs.filter((faq) => {
-    const matchesCategory = activeCategory === "All" || faq.category === activeCategory;
-    const matchesSearch = faq.question.toLowerCase().includes(search.toLowerCase());
+    const matchesCategory =
+      activeCategory === "All" || faq.category === activeCategory;
+    const matchesSearch = faq.question
+      .toLowerCase()
+      .includes(search.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -36,7 +107,8 @@ const FAQPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center pt-24">
+      <Navbar />
       <motion.h2
         className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 text-center"
         initial={{ opacity: 0, y: -30 }}
@@ -51,7 +123,8 @@ const FAQPage = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.2 }}
       >
-        Got questions? We've got answers! Find everything you need to know about living at RoomKey.
+        Got questions? We've got answers! Find everything you need to know about
+        living at RoomKey.
       </motion.p>
 
       {/* Search Bar */}
@@ -104,7 +177,9 @@ const FAQPage = () => {
               </div>
               <ChevronDown
                 className={`w-5 h-5 transform transition-transform ${
-                  openIndex === i ? "rotate-180 text-amber-500" : "text-gray-400"
+                  openIndex === i
+                    ? "rotate-180 text-amber-500"
+                    : "text-gray-400"
                 }`}
               />
             </button>

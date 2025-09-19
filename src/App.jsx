@@ -7,6 +7,7 @@ import RoomsPage from "./components/roomlisting"; // RoomListings component
 import ReviewsPage from "./components/reviews_page"; // Reviews component
 import FAQPage from "./components/faq"; // FAQ component
 import ContactPage from "./components/contact"; // Contact component
+import ScheduleTourPage from "./components/scheduletour"; // Schedule Tour component
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="/reviews" element={<ReviewsPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/schedule" element={<ScheduleTourPage />} />
       </Routes>
     </Router>
   );

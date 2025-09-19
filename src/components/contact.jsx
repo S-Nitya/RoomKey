@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
+import Navbar from "./Navbar";
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -11,8 +12,9 @@ const ContactPage = () => {
     parentEmail: "",
     permanentAddress: "",
     currentAddress: "",
-    identityDoc: null,
-    collegeId: null,
+    identityDoc: null, // Aadhar Card
+    collegeId: null, // College ID
+    roomNeededUntil: "",
   });
 
   const handleChange = (e) => {
@@ -30,7 +32,8 @@ const ContactPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 py-12 px-4 sm:px-6 lg:px-8 flex flex-col items-center pt-24">
+      <Navbar />
       <motion.h2
         className="text-3xl sm:text-4xl font-bold text-gray-900 mb-4 text-center"
         initial={{ opacity: 0, y: -30 }}
@@ -54,7 +57,9 @@ const ContactPage = () => {
       >
         {/* Student Details */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Student Details</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            Student Details
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <input
               type="text"
@@ -88,7 +93,9 @@ const ContactPage = () => {
 
         {/* Parent Details */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Parent Details</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            Parent Details
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <input
               type="text"
@@ -122,7 +129,9 @@ const ContactPage = () => {
 
         {/* Address Details */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Address Details</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            Address Details
+          </h3>
           <textarea
             name="permanentAddress"
             value={formData.permanentAddress}
@@ -143,9 +152,26 @@ const ContactPage = () => {
           ></textarea>
         </div>
 
-        {/* File Uploads */}
+        {/* Time Needed for the Room */}
         <div>
-          <h3 className="text-lg font-semibold text-gray-800 mb-4">Upload Documents</h3>
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            Time Needed for the Room
+          </h3>
+          <input
+            type="datetime-local"
+            name="roomNeededUntil"
+            value={formData.roomNeededUntil}
+            onChange={handleChange}
+            className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-amber-400"
+            required
+          />
+        </div>
+
+        {/* File Uploads (Aadhar Card and College ID) */}
+        <div>
+          <h3 className="text-lg font-semibold text-gray-800 mb-4">
+            Upload Documents
+          </h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             <input
               type="file"
@@ -155,6 +181,8 @@ const ContactPage = () => {
               className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-amber-400"
               required
             />
+            <label className="text-sm text-gray-600">Upload Aadhar Card</label>
+
             <input
               type="file"
               name="collegeId"
@@ -163,6 +191,7 @@ const ContactPage = () => {
               className="border border-gray-300 rounded-lg p-3 w-full focus:outline-none focus:ring-2 focus:ring-amber-400"
               required
             />
+            <label className="text-sm text-gray-600">Upload College ID</label>
           </div>
         </div>
 

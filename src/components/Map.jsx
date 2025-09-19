@@ -3,6 +3,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "leaflet-routing-machine/dist/leaflet-routing-machine.css";
 import "leaflet-routing-machine";
+import Navbar from "./Navbar";
 
 const Map = () => {
   const mapRef = useRef(null);
@@ -11,8 +12,13 @@ const Map = () => {
     if (!mapRef.current) return;
 
     if (!mapRef.current._leaflet_id) {
-      const map = L.map(mapRef.current).setView([19.076, 72.8777], 12); // Mumbai center
+      const map = L.map(mapRef.current, {
+        center: [19.076, 72.8777], // Mumbai center
+        zoom: 2, // Initial zoom level (world view)
+        zoomControl: true,
+      });
 
+      // Tile layer from OpenStreetMap
       L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
         attribution:
           '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
@@ -20,8 +26,7 @@ const Map = () => {
 
       // Dormitory icon (working example)
       const dormitoryIcon = L.icon({
-        iconUrl:
-          "https://cdn-icons-png.flaticon.com/512/684/684908.png",
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/684/684908.png",
         iconSize: [40, 40],
         iconAnchor: [20, 40],
         popupAnchor: [0, -40],
@@ -29,7 +34,7 @@ const Map = () => {
 
       const dormitories = [
         {
-          name: "Dormitory 1",
+          name: "Sadguru Sharanam",
           lat: 19.076,
           lon: 72.8777,
           price: "₹5000",
@@ -37,101 +42,67 @@ const Map = () => {
           address: "Mumbai, Maharashtra",
         },
         {
-          name: "Dormitory 2",
-          lat: 19.080,
+          name: "Ajanta",
+          lat: 19.08,
           lon: 72.885,
           price: "₹4500",
           available: false,
           address: "Mumbai, Maharashtra",
         },
         {
-          name: "Dormitory 3",
-          lat: 19.070,
-          lon: 72.870,
+          name: "Kedarnath",
+          lat: 19.07,
+          lon: 72.87,
           price: "₹4750",
           available: true,
           address: "Mumbai, Maharashtra",
         },
       ];
 
-      dormitories.forEach((d) => {
-        const marker = L.marker([d.lat, d.lon], { icon: dormitoryIcon }).addTo(map);
-
-        marker.bindPopup(
-          `<b>${d.name}</b><br>Price: ${d.price}<br>Status: ${
-            d.available ? "Available ✅" : "Booked ❌"
-          }<br>Address: ${d.address}`
-        );
-
-        marker.bindTooltip(
-          `${d.name}<br>Price: ${d.price}<br>Address: ${d.address}`,
-          {
-            permanent: false,
-            direction: "top",
-            offset: [0, -30],
-          }
-        );
-
-        // Show tooltip and popup on hover
-        marker.on("mouseover", () => {
-          marker.openTooltip();
-          marker.openPopup();
-        });
-        marker.on("mouseout", () => {
-          marker.closeTooltip();
-          marker.closePopup();
-        });
-      });
-
-      // Landmarks strictly in Mumbai
+      // Landmarks data
       const landmarks = [
         { name: "Gateway of India", lat: 18.922, lon: 72.8347 },
         { name: "Marine Drive", lat: 18.943, lon: 72.823 },
-        { name: "Chhatrapati Shivaji Terminus", lat: 18.940, lon: 72.835 },
+        { name: "Chhatrapati Shivaji Terminus", lat: 18.94, lon: 72.835 },
       ];
 
-      landmarks.forEach((l) => {
-        L.marker([l.lat, l.lon]).addTo(map).bindPopup(`<b>${l.name}</b>`);
-      });
-
-      // Transport icons with reliable URLs
+      // Simple black transport icons
       const busIcon = L.icon({
         iconUrl:
-          "https://cdn-icons-png.flaticon.com/512/61/61231.png",
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -30],
+          "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f68c.svg", // Black bus icon SVG
+        iconSize: [28, 28],
+        iconAnchor: [14, 28],
+        popupAnchor: [0, -28],
+        className: "leaflet-black-icon",
       });
 
       const trainIcon = L.icon({
         iconUrl:
-          "https://cdn-icons-png.flaticon.com/512/61/61222.png",
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -30],
+          "https://cdn.jsdelivr.net/gh/twitter/twemoji@14.0.2/assets/svg/1f686.svg", // Black train icon SVG
+        iconSize: [28, 28],
+        iconAnchor: [14, 28],
+        popupAnchor: [0, -28],
+        className: "leaflet-black-icon",
       });
 
       const metroIcon = L.icon({
-        iconUrl:
-          "https://cdn-icons-png.flaticon.com/512/61/61220.png",
+        iconUrl: "https://cdn-icons-png.flaticon.com/512/61/61220.png", // Metro icon
         iconSize: [30, 30],
         iconAnchor: [15, 30],
         popupAnchor: [0, -30],
       });
 
-      // Transport options strictly in Mumbai
       const transportOptions = [
-        // Train stations
         {
           name: "Chhatrapati Shivaji Maharaj Terminus (CST)",
-          lat: 18.940,
+          lat: 18.94,
           lon: 72.835,
           icon: trainIcon,
         },
         {
           name: "Mumbai Central Railway Station",
           lat: 18.975,
-          lon: 72.830,
+          lon: 72.83,
           icon: trainIcon,
         },
         {
@@ -146,8 +117,6 @@ const Map = () => {
           lon: 72.842,
           icon: trainIcon,
         },
-
-        // Metro stations
         {
           name: "Versova Metro Station",
           lat: 19.117,
@@ -166,23 +135,16 @@ const Map = () => {
           lon: 72.819,
           icon: metroIcon,
         },
-
-        // Bus stops
         {
           name: "Shivaji Park Bus Stop",
           lat: 19.016,
           lon: 72.846,
           icon: busIcon,
         },
-        {
-          name: "Bandra Bus Depot",
-          lat: 19.058,
-          lon: 72.832,
-          icon: busIcon,
-        },
+        { name: "Bandra Bus Depot", lat: 19.058, lon: 72.832, icon: busIcon },
         {
           name: "Ghatkopar Bus Station",
-          lat: 19.090,
+          lat: 19.09,
           lon: 72.918,
           icon: busIcon,
         },
@@ -194,11 +156,63 @@ const Map = () => {
         },
       ];
 
-      transportOptions.forEach((t) => {
-        L.marker([t.lat, t.lon], { icon: t.icon })
-          .addTo(map)
-          .bindPopup(`<b>${t.name}</b>`);
+      // Create markers for dormitories
+      dormitories.forEach((d) => {
+        const marker = L.marker([d.lat, d.lon], { icon: dormitoryIcon }).addTo(
+          map
+        );
+        marker.bindPopup(
+          `<b>${d.name}</b><br>Price: ${d.price}<br>Status: ${
+            d.available ? "Available ✅" : "Booked ❌"
+          }<br>Address: ${d.address}`
+        );
+        marker.bindTooltip(
+          `${d.name}<br>Price: ${d.price}<br>Address: ${d.address}`,
+          {
+            permanent: false,
+            direction: "top",
+            offset: [0, -30],
+          }
+        );
+        marker.on("mouseover", () => {
+          marker.openTooltip();
+          marker.openPopup();
+        });
+        marker.on("mouseout", () => {
+          marker.closeTooltip();
+          marker.closePopup();
+        });
       });
+
+      // Create markers for landmarks
+      landmarks.forEach((l) => {
+        L.marker([l.lat, l.lon]).addTo(map).bindPopup(`<b>${l.name}</b>`);
+      });
+
+      // Create markers for transport options with tooltips on hover
+      transportOptions.forEach((t) => {
+        const marker = L.marker([t.lat, t.lon], { icon: t.icon }).addTo(map);
+        marker.bindPopup(`<b>${t.name}</b>`);
+        marker.bindTooltip(`${t.name}`, {
+          permanent: false,
+          direction: "top",
+          offset: [0, -24],
+        });
+        marker.on("mouseover", () => {
+          marker.openTooltip();
+        });
+        marker.on("mouseout", () => {
+          marker.closeTooltip();
+        });
+      });
+
+      // Animation - Fly to Mumbai (initial world view to Mumbai zoom)
+      setTimeout(() => {
+        map.flyTo([19.076, 72.8777], 12, {
+          duration: 4, // Duration of the zoom animation
+          easeLinearity: 0.25, // The speed curve of the animation
+        });
+      }, 500); // Delay the animation so the map can load first
 
       // Routing Dormitory 1 → Gateway of India
       L.Routing.control({
@@ -214,14 +228,23 @@ const Map = () => {
 
   return (
     <div
-      ref={mapRef}
       style={{
-        height: "100vh", // Fullscreen height
-        width: "100%", // Full width
-        borderRadius: "0", // Optional: if you want sharp edges
-        overflow: "hidden",
+        minHeight: "100vh",
+        background: "#f8fafc",
+        paddingTop: "5.5rem",
       }}
-    />
+    >
+      <Navbar />
+      <div
+        ref={mapRef}
+        style={{
+          height: "100vh", // Fullscreen height
+          width: "100%", // Full width
+          borderRadius: "0", // Optional: if you want sharp edges
+          overflow: "hidden",
+        }}
+      />
+    </div>
   );
 };
 

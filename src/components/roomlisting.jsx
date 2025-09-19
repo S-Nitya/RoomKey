@@ -1,120 +1,78 @@
-import React from 'react';
-import { ChevronDown, Menu, Camera } from 'lucide-react';
-import { Link } from 'react-router-dom'; // Import Link for routing
+import React, { useState } from "react";
+import { ChevronDown, Camera } from "lucide-react";
+import { Link } from "react-router-dom";
+import Navbar from "./Navbar";
 
 const RoomsPage = () => {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [roomTypeFilter, setRoomTypeFilter] = React.useState('All Rooms');
-  const [priceFilter, setPriceFilter] = React.useState('Price: Low to High');
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [roomTypeFilter, setRoomTypeFilter] = useState("All Rooms");
+  const [priceFilter, setPriceFilter] = useState("Price: Low to High");
 
   const rooms = [
     {
       id: 1,
       title: "Triple Sharing",
-      price: 7500, 
+      price: 7500,
       description: "Budget-friendly triple sharing with bunk beds",
       status: "Full",
-      image: "/images/triple-1.jpg" 
+      image: "/images/triple-1.jpg",
     },
     {
       id: 2,
       title: "Double Sharing",
-      price: 9500, 
-      description: "Comfortable double sharing room with twin beds",
+      price: 9500,
+      description: "Comfortable double sharing room with beds",
       status: "Available",
-      image: "/images/double-1.jpg" 
+      image: "/images/double-1.jpg",
     },
     {
       id: 3,
       title: "Single Room",
-      price: 13000, 
+      price: 13000,
       description: "Spacious single room with private bathroom",
       status: "Available",
-      image: "/images/single-1.jpg" 
-    }
+      image: "/images/single-1.jpg",
+    },
   ];
 
+  // Filter rooms based on room type
+  const filteredRooms = rooms.filter((room) => {
+    if (roomTypeFilter === "All Rooms") return true;
+    return room.title.includes(roomTypeFilter);
+  });
+
+  // Sort rooms based on price filter
+  const sortedRooms = filteredRooms.sort((a, b) => {
+    if (priceFilter === "Price: Low to High") {
+      return a.price - b.price;
+    } else if (priceFilter === "Price: High to Low") {
+      return b.price - a.price;
+    }
+    return 0;
+  });
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navbar */}
-      <nav className="relative z-50 bg-white shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <div className="flex items-center">
-              <span className="text-2xl font-bold bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent font-poppins">
-                RoomKey
-              </span>
-            </div>
-
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-              <Link to="/listings" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Room Listings</Link>
-              <Link to="/gallery" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Photo Gallery</Link>
-              <Link to="/location" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Location</Link>
-              <Link to="/reviews" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Reviews</Link>
-              <Link to="/faq" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">FAQ</Link>
-              <Link to="/contact" className="text-gray-700 hover:text-amber-600 font-medium transition-colors duration-200 text-sm lg:text-base">Contact</Link>
-            </div>
-
-            {/* CTA Button */}
-            <div className="hidden md:flex">
-              <button className="bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 lg:px-6 py-2 rounded-lg font-semibold hover:from-amber-600 hover:to-orange-600 transition-colors duration-200 text-sm lg:text-base">
-                Book Now
-              </button>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="md:hidden">
-              <button 
-                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                className="text-gray-700 hover:text-amber-600"
-              >
-                <Menu className="w-6 h-6" />
-              </button>
-            </div>
-          </div>
-
-          {/* Mobile Menu */}
-          {isMobileMenuOpen && (
-            <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg border-t border-gray-100 z-50">
-              <div className="px-4 py-2 space-y-1">
-                <Link to="/listings" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Room Listings</Link>
-                <Link to="/gallery" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Photo Gallery</Link>
-                <Link to="/location" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Location</Link>
-                <Link to="/reviews" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Reviews</Link>
-                <Link to="/faq" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">FAQ</Link>
-                <Link to="/contact" className="block px-3 py-2 text-gray-700 hover:text-amber-600 hover:bg-gray-50 rounded-md font-medium">Contact</Link>
-                <div className="pt-2 pb-2">
-                  <button className="w-full bg-gradient-to-r from-amber-500 to-orange-500 text-white px-4 py-2 rounded-lg font-semibold">
-                    Book Now
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
+    <div className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 pt-24">
+      <Navbar />
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-        
         {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6 font-poppins">
             Find Your Perfect Room
           </h1>
           <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto font-inter leading-relaxed">
-            Choose from our variety of comfortable, well-equipped rooms designed for modern student living
+            Choose from our variety of comfortable, well-equipped rooms designed
+            for modern student living
           </p>
         </div>
 
         {/* Filters Section */}
         <div className="flex flex-col sm:flex-row gap-4 mb-12 justify-center">
-          
           {/* Room Type Filter */}
           <div className="relative">
-            <select 
+            <select
               value={roomTypeFilter}
               onChange={(e) => setRoomTypeFilter(e.target.value)}
               className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-10 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 min-w-[200px]"
@@ -129,7 +87,7 @@ const RoomsPage = () => {
 
           {/* Price Filter */}
           <div className="relative">
-            <select 
+            <select
               value={priceFilter}
               onChange={(e) => setPriceFilter(e.target.value)}
               className="appearance-none bg-white border border-gray-300 rounded-lg px-4 py-3 pr-10 text-gray-700 font-medium focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 min-w-[200px]"
@@ -144,21 +102,22 @@ const RoomsPage = () => {
 
         {/* Room Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-          
-          {rooms.map((room) => (
-            <div key={room.id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105">
-              
+          {sortedRooms.map((room) => (
+            <div
+              key={room.id}
+              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+            >
               {/* Room Image section now uses an <img> tag */}
               <div className="relative h-48 lg:h-56">
-                <img 
-                  src={room.image} 
+                <img
+                  src={room.image}
                   alt={room.title}
                   className="w-full h-full object-cover"
                 />
-                
+
                 {/* Status Badge */}
                 <div className="absolute top-4 right-4">
-                  {room.status === 'Available' ? (
+                  {room.status === "Available" ? (
                     <span className="bg-amber-500 text-white px-3 py-1 rounded-full text-sm font-semibold shadow-md">
                       ✓ Available
                     </span>
@@ -186,7 +145,7 @@ const RoomsPage = () => {
                   <div className="text-right">
                     {/* Price symbol updated to INR (₹) */}
                     <div className="text-2xl lg:text-3xl font-bold text-amber-600">
-                      ₹{room.price.toLocaleString('en-IN')}
+                      ₹{room.price.toLocaleString("en-IN")}
                     </div>
                     <div className="text-sm text-gray-500">per month</div>
                   </div>
@@ -197,12 +156,17 @@ const RoomsPage = () => {
                 </p>
 
                 {/* Action Button */}
-                <Link to="/listings" className={`w-full py-3 rounded-lg font-semibold text-lg transition-all duration-300 ${
-                  room.status === 'Available' 
-                    ? 'bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:shadow-lg transform hover:scale-105' 
-                    : 'bg-gray-300 text-gray-500 cursor-not-allowed'
-                }`}>
-                  {room.status === 'Available' ? 'View Details' : 'Currently Full'}
+                <Link
+                  to="/listings"
+                  className={`w-full h-14 flex items-center justify-center rounded-xl font-semibold text-base md:text-lg transition-all duration-300 mt-2 mb-1 px-2 ${
+                    room.status === "Available"
+                      ? "bg-gradient-to-r from-amber-500 to-orange-500 text-white hover:from-amber-600 hover:to-orange-600 hover:shadow-lg transform hover:scale-105"
+                      : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                  }`}
+                >
+                  {room.status === "Available"
+                    ? "View Details"
+                    : "Currently Full"}
                 </Link>
               </div>
             </div>
@@ -216,7 +180,6 @@ const RoomsPage = () => {
           </button>
         </div>
       </div>
-
     </div>
   );
 };
