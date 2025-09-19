@@ -3,10 +3,10 @@ import RoomKeyLanding from "./components/landingpage"; // RoomKeyLanding compone
 import Map from "./components/Map"; // Map component
 import PhotoGallery from "./components/gallery"; // PhotoGallery component
 // Uncomment other components once you create them:
-// import RoomListings from "./components/RoomListings"; // RoomListings component
+import RoomsPage from "./components/roomlisting"; // RoomListings component
 // import Reviews from "./components/Reviews"; // Reviews component
 // import FAQ from "./components/FAQ"; // FAQ component
-// import Contact from "./components/Contact"; // Contact component
+import DormitoryInquiryForm from "./components/inquiry"; // Contact component
 
 function App() {
   return (
@@ -18,10 +18,10 @@ function App() {
         <Route path="/location" element={<Map />} />  {/* Map page (Location) */}
         
         {/* Uncomment and add these routes if the respective components are created */}
-        {/* <Route path="/listings" element={<RoomListings />} /> */}
+        <Route path="/listings" element={<RoomsPage/>} />
         {/* <Route path="/reviews" element={<Reviews />} /> */}
         {/* <Route path="/faq" element={<FAQ />} /> */}
-        {/* <Route path="/contact" element={<Contact />} /> */}
+        <Route path="/contact" element={<DormitoryInquiryForm />} />
       </Routes>
     </Router>
   );
